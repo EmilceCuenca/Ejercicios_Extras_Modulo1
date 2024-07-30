@@ -16,9 +16,10 @@ do
     Console.WriteLine("8. Ejercicio N° 8: Secuencia de Números.");
     Console.WriteLine("9. Ejercicio N° 9: Suma de Quince números.");
     Console.WriteLine("11. Ejercicio N° 11: Contraseñas.");
+    Console.WriteLine("12. Ejercicio N° 12: Contraseñas Limitadas.");
     Console.WriteLine("0. Finalizar.");
     Console.WriteLine();
-    int[] opciones = { 1, 2, 3, 4, 5, 6, 8, 9, 11, 0 };
+    int[] opciones = { 1, 2, 3, 4, 5, 6, 8, 9, 11, 12, 0 };
     bool opc_valida = int.TryParse(Console.ReadLine(), out int opcion);
     while (!opc_valida || !Array.Exists(opciones,op => op == opcion))
     {
@@ -55,6 +56,9 @@ do
         case 11:
             Ejercicio11();
             break;
+        case 12:
+            Ejercicio12();
+            break;
         case 0 :
             continuar = false;
             Console.WriteLine("Gracias¡Hasta pronto!");
@@ -81,6 +85,31 @@ int ObtenerNumero(string texto)
         es_valido = int.TryParse(Console.ReadLine(), out numero);
     }
     return numero;
+}
+string Contraseña()
+{
+    string contraseña = "";
+    ConsoleKeyInfo caracter;
+    while (contraseña.Length <= 16)
+    {
+        caracter = Console.ReadKey(true);
+        if (caracter.Key != ConsoleKey.Backspace && caracter.Key != ConsoleKey.Enter)
+        {
+            contraseña += caracter.KeyChar;
+            Console.Write("*");
+        }
+        else if (caracter.Key == ConsoleKey.Backspace && contraseña.Length > 0)
+        {
+            contraseña = contraseña.Substring(0, (contraseña.Length - 1));
+            Console.Write("\b \b");
+        }
+        else if (caracter.Key == ConsoleKey.Enter)
+        {
+            break;
+        }
+    }
+    Console.WriteLine();
+    return contraseña;
 }
 void Ejercicio1()
 {
@@ -328,32 +357,7 @@ void Ejercicio9()
 }
 void Ejercicio11()
 {
-    string Contraseña()
-    {
-        string contraseña ="";
-        ConsoleKeyInfo caracter;
-        while (contraseña.Length <= 16)
-        {
-            caracter = Console.ReadKey(true);
-            if (caracter.Key!=ConsoleKey.Backspace && caracter.Key!=ConsoleKey.Enter)
-            {
-                contraseña += caracter.KeyChar;
-                Console.Write("*");
-            }
-            else if (caracter.Key==ConsoleKey.Backspace && contraseña.Length > 0)
-            {
-                contraseña = contraseña.Substring(0, (contraseña.Length - 1));
-                Console.Write("\b \b");
-            }
-            else if (caracter.Key==ConsoleKey.Enter)
-            {
-                break;
-            }
-        }
-        Console.WriteLine();
-        return contraseña;
-    }
-    string? tecla;
+     string? tecla;
     do
     {
         Console.WriteLine("EJERCICIO N° 11: Contraseñas.");
@@ -368,6 +372,37 @@ void Ejercicio11()
             contraseña_2 = Contraseña();
         }
         Console.WriteLine("Las contraseñas coinciden.");
+        Console.WriteLine();
+        tecla = Regresar();
+    }
+    while (tecla == "1");
+}
+void Ejercicio12()
+{
+    string? tecla;
+    do
+    {
+        Console.WriteLine("EJERCICIO N° 12: Contraseñas Limitadas.");
+        Console.WriteLine();
+        Console.WriteLine("Por favor, ingrese una contraseña (de hasta 16 caracteres).");
+        string contraseña_1 = Contraseña();
+        Console.WriteLine("Por favor, ingrese nuevamente la contraseña.");
+        string contraseña_2 = Contraseña();
+        for (int i = 1; i<3; i++)
+        {
+            if (contraseña_1 != contraseña_2)
+            {
+                Console.WriteLine("Las contraseñas no coinciden. Por favor, intente de nuevo.");
+                Console.WriteLine("(Tenga en cuenta que le quedan "+(3-i)+" intentos)");
+                contraseña_2 = Contraseña();
+            }
+            else
+            {
+                Console.WriteLine("Las contraseñas coinciden.");
+                break;
+            }
+        }
+        Console.WriteLine("Ha superado el número de intentos.");
         Console.WriteLine();
         tecla = Regresar();
     }
