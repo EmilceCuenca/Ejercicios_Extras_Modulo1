@@ -1,4 +1,6 @@
-﻿Console.WriteLine("¡Hola!");
+﻿using static System.Runtime.InteropServices.JavaScript.JSType;
+
+Console.WriteLine("¡Hola!");
 Console.WriteLine();
 bool continuar = true;
 do
@@ -16,11 +18,12 @@ do
     Console.WriteLine("7. Ejercicio N° 7: Desglose de Dinero.");
     Console.WriteLine("8. Ejercicio N° 8: Secuencia de Números.");
     Console.WriteLine("9. Ejercicio N° 9: Suma de Quince números.");
+    Console.WriteLine("10. Ejercicio N° 10: Múltiplos de 3.");
     Console.WriteLine("11. Ejercicio N° 11: Contraseñas.");
     Console.WriteLine("12. Ejercicio N° 12: Contraseñas Limitadas.");
     Console.WriteLine("0. Finalizar.");
     Console.WriteLine();
-    int[] opciones = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 0 };
+    int[] opciones = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 0 };
     bool opc_valida = int.TryParse(Console.ReadLine(), out int opcion);
     while (!opc_valida || !Array.Exists(opciones,op => op == opcion))
     {
@@ -48,7 +51,7 @@ do
         case 6:
             Ejercicio6();
             break;
-            case 7:
+        case 7:
             Ejercicio7();
             break;
         case 8:
@@ -56,6 +59,9 @@ do
             break;
         case 9:
             Ejercicio9();
+            break;
+        case 10:
+            Ejercicio10();
             break;
         case 11:
             Ejercicio11();
@@ -425,6 +431,35 @@ void Ejercicio9()
         tecla = Regresar();
     }
     while (tecla == "1");
+}
+void Ejercicio10()
+{
+    string? tecla;
+    do
+    {
+        Console.WriteLine("EJERCICIO N° 10: Múltiplos de 3.");
+        Console.WriteLine();
+        Console.WriteLine("Introduce cinco números enteros y te diré si alguno de ellos es múltiplo de 3.");
+        Console.WriteLine();
+        int[] numeros =[];
+        for (int i = 0; i < 5; i++)
+        {
+            string texto = "ingresa un número entero";
+            int numero = ObtenerNumero(texto);
+            numeros = [..numeros, numero];
+        }
+        Console.WriteLine();
+        foreach (int nro in numeros)
+        {
+            if (nro%3== 0)
+            {
+                Console.WriteLine("El número "+nro+" es múltiplo de 3");
+            }
+        }
+        Console.WriteLine();
+        tecla = Regresar();
+    }
+    while(tecla == "1");
 }
 void Ejercicio11()
 {
