@@ -1,6 +1,4 @@
-﻿using static System.Runtime.InteropServices.JavaScript.JSType;
-
-Console.WriteLine("¡Hola!");
+﻿Console.WriteLine("¡Hola!");
 Console.WriteLine();
 bool continuar = true;
 do
