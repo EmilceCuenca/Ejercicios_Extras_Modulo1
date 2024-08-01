@@ -13,13 +13,14 @@ do
     Console.WriteLine("4. Ejercicio N° 4: Números Romanos.");
     Console.WriteLine("5. Ejercicio N° 5: El más joven.");
     Console.WriteLine("6. Ejercicio N° 6: Triángulos.");
+    Console.WriteLine("7. Ejercicio N° 7: Desglose de Dinero.");
     Console.WriteLine("8. Ejercicio N° 8: Secuencia de Números.");
     Console.WriteLine("9. Ejercicio N° 9: Suma de Quince números.");
     Console.WriteLine("11. Ejercicio N° 11: Contraseñas.");
     Console.WriteLine("12. Ejercicio N° 12: Contraseñas Limitadas.");
     Console.WriteLine("0. Finalizar.");
     Console.WriteLine();
-    int[] opciones = { 1, 2, 3, 4, 5, 6, 8, 9, 11, 12, 0 };
+    int[] opciones = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 0 };
     bool opc_valida = int.TryParse(Console.ReadLine(), out int opcion);
     while (!opc_valida || !Array.Exists(opciones,op => op == opcion))
     {
@@ -46,6 +47,9 @@ do
             break;
         case 6:
             Ejercicio6();
+            break;
+            case 7:
+            Ejercicio7();
             break;
         case 8:
             Ejercicio8();
@@ -118,6 +122,8 @@ void Ejercicio1()
     {
         Console.WriteLine("EJERCICIO N° 1: Valores Mayores a 100.");
         Console.WriteLine();
+        Console.WriteLine("Introduce un número entero y te diré si este valor es mayor que 100.");
+        Console.WriteLine();
         string texto = "ingresa un número";
         int numero = ObtenerNumero(texto);
         if (numero > 100)
@@ -135,6 +141,8 @@ void Ejercicio2()
     do
     {
         Console.WriteLine("EJERCICIO N° 2: Pares e Impares.");
+        Console.WriteLine();
+        Console.WriteLine("Introduce un número entero y te diré si es par o impar.");
         Console.WriteLine();
         string texto = "ingresa un número entero";
         int numero = ObtenerNumero(texto);
@@ -158,6 +166,8 @@ void Ejercicio3()
     {
         Console.WriteLine("EJERCICIO N° 3: Dobles de Números Impares.");
         Console.WriteLine();
+        Console.WriteLine("Introduce un número entero y te diré si es el doble de un número impar.");
+        Console.WriteLine();
         string texto = "ingresa un número entero";
         int numero = ObtenerNumero(texto);
         int mitad = numero / 2;
@@ -180,6 +190,8 @@ void Ejercicio4()
     do
     {
         Console.WriteLine("EJERCICIO N° 4: Números Romanos.");
+        Console.WriteLine();
+        Console.WriteLine("Introduce un número del 1 al 10 y te mostraré su equivalente en números romanos.");
         Console.WriteLine();
         Console.WriteLine("Por favor, ingrese un número del 1 al 10");
         int[] num_1_10 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
@@ -215,6 +227,9 @@ void Ejercicio5()
     do
     {
         Console.WriteLine("EJERCICIO N° 5: El más joven.");
+        Console.WriteLine();
+        Console.WriteLine("Introduce el nombre y la edad de dos personas. " +
+            "Te diré quién es el menor y te indicaré la diferencia de edad si es necesario.");
         Console.WriteLine();
         string? nombre_1 = ObtenerNombre("primer");
         int edad_1 = ObtenerEdad();
@@ -271,12 +286,15 @@ void Ejercicio6()
         double area = Math.Sqrt(s * (s - lado_1) * (s - lado_2) * (s - lado_3));
         return area;
     }
-    Console.WriteLine("EJERCICIO N° 6: Triangulos.");
-    Console.WriteLine();
-    Console.WriteLine("Conociendo las longitudes de los lados de un triángulo, podemos determinar su tipo.");
     string? tecla;
     do
     {
+        Console.WriteLine("EJERCICIO N° 6: Triangulos.");
+        Console.WriteLine();
+        Console.WriteLine("Conociendo las longitudes de los lados de un triángulo, podemos determinar su tipo.");
+        Console.WriteLine("Ingresa las longitudes de los tres lados de un triángulo. " +
+            "Te diré qué tipo de triángulo es y calcularé su perímetro y área si así lo deseas.");
+        Console.WriteLine();
         double lado_1 = ObtenerLado("primer");
         double lado_2 = ObtenerLado("segundo");
         double lado_3 = ObtenerLado("tercer");
@@ -316,12 +334,62 @@ void Ejercicio6()
     }
     while (tecla == "1");
 }
+void Ejercicio7()
+{
+    string? tecla;
+    do
+    {
+        Console.WriteLine("EJERCICIO N° 7: Desglose de Dinero.");
+        Console.WriteLine();
+        Console.WriteLine("Ingresa una cantidad de dinero y " +
+            "te mostraré su desglose en billetes y monedas para que se minimice la cantidad total de piezas.");
+        Console.WriteLine();
+        string? texto = " ingrese el monto de dinero a desglosar.";
+        Console.WriteLine();
+        int cantidad = ObtenerNumero(texto);
+        int[] denominaciones = {1000, 500, 100, 50, 20, 10, 5, 2, 1};
+        foreach(int denominacion in denominaciones)
+        {
+            int cant_efectivo = cantidad / denominacion;
+            if (cant_efectivo > 0)
+            {
+                if (denominacion > 5)
+                {
+                    if (cant_efectivo > 1)
+                    {
+                        Console.WriteLine(cant_efectivo + " billetes de $" + denominacion);
+                    }
+                    else
+                    {
+                        Console.WriteLine(cant_efectivo + " billete de $" + denominacion);
+                    }
+                }
+                else
+                {
+                    if (cant_efectivo > 1)
+                    {
+                        Console.WriteLine(cant_efectivo + " monedas de $" + denominacion);
+                    }
+                    else
+                    {
+                        Console.WriteLine(cant_efectivo + " moneda de $" + denominacion);
+                    }
+                }
+                cantidad %= denominacion;
+            }
+        }
+        tecla = Regresar();
+    } while (tecla == "1");
+}
 void Ejercicio8()
 {
     string? tecla;
     do
     {
         Console.WriteLine("8. EJERCICIO N° 8: Secuencia de Números.");
+        Console.WriteLine();
+        Console.WriteLine("Ingresa un número entero y te mostraré " +
+            "una lista con todos los números desde el 1 hasta ese número, uno por uno.");
         Console.WriteLine();
         string texto = "ingrese un número";
         int numero = ObtenerNumero(texto);
@@ -340,6 +408,9 @@ void Ejercicio9()
     do
     {
         Console.WriteLine("9. EJERCICIO N° 9: Suma de Quince Números.");
+        Console.WriteLine();
+        Console.WriteLine("Introduce 15 números enteros, uno por uno y" +
+            " calcularé la suma total de los números introducidos.");
         Console.WriteLine();
         int suma_total = 0;
         for (int i = 1; i <= 15; i++)
@@ -362,7 +433,10 @@ void Ejercicio11()
     {
         Console.WriteLine("EJERCICIO N° 11: Contraseñas.");
         Console.WriteLine();
-        Console.WriteLine("Por favor, ingrese una contraseña (de hasta 16 caracteres).");
+        Console.WriteLine("Ingresa una contraseña (de hasta 16 caracteres). Luego, vuelve a ingresarla." +
+            " Te confirmaré si ambas contraseñas coinciden o no.");
+        Console.WriteLine();
+        Console.WriteLine("Por favor, ingrese una contraseña.");
         string contraseña_1 = Contraseña();
         Console.WriteLine("Por favor, ingrese nuevamente la contraseña.");
         string contraseña_2 = Contraseña();
@@ -383,6 +457,9 @@ void Ejercicio12()
     do
     {
         Console.WriteLine("EJERCICIO N° 12: Contraseñas Limitadas.");
+        Console.WriteLine();
+        Console.WriteLine("Ingresa una contraseña (de hasta 16 caracteres). Luego, vuelve a ingresarla." +
+            " Te confirmaré si ambas contraseñas coinciden o no. Después de tres intentos fallidos, terminaré el proceso.");
         Console.WriteLine();
         Console.WriteLine("Por favor, ingrese una contraseña (de hasta 16 caracteres).");
         string contraseña_1 = Contraseña();
